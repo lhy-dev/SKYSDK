@@ -1,0 +1,117 @@
+#include "sky.h"
+
+bool sky_critical_section_init ( void );
+void sky_critical_section_uninit ( void );
+bool sky_debug_init ( void );
+void sky_debug_uninit ( void );
+bool sky_list_init ( void );
+void sky_list_uninit ( void );
+bool sky_sys_init ( void );
+void sky_sys_uninit ( void );
+bool sky_str_init ( void );
+void sky_str_uninit ( void );
+bool sky_hash_init ( void );
+void sky_hash_uninit ( void );
+bool sky_dll_init ( void );
+void sky_dll_uninit ( void );
+
+typedef bool (*init_func_type) ();
+typedef void (*uninit_func_type) ();
+
+const init_func_type INIT_FUNCS [] =
+{
+
+	sky_debug_init,
+	sky_critical_section_init,
+	sky_list_init,
+	sky_sys_init,
+	sky_str_init,
+	sky_hash_init,
+	sky_dll_init,
+};
+
+const uninit_func_type UNINIT_FUNCS [] =
+{
+	sky_dll_uninit,
+	sky_hash_uninit,
+	sky_str_uninit,
+	sky_sys_uninit,
+	sky_list_uninit,
+	sky_critical_section_uninit,
+	sky_debug_uninit
+
+};
+
+const int INIT_FUNC_CNT = sizeof( INIT_FUNCS ) / sizeof( INIT_FUNCS[ 0 ] );
+static int init_count = 0;
+
+SKY_API bool sky_init ( void )
+{
+	int i,j;
+
+	SKY_LOG_TRACE( "%s: init_count = %d\n", __func__, init_count );
+
+	if ( 0 == init_count )
+	{
+		for ( i = 0; i < INIT_FUNC_CNT; i++ )
+		{
+			if ( !INIT_FUNCS[ i ]() )
+			{
+				for ( j = i - 1; j >= 0; j-- )
+				{
+					UNINIT_FUNCS[ j ]();
+				}
+				return false;
+			}
+		}
+	}
+
+	init_count++;
+
+	return true;
+}
+
+SKY_API void sky_uninit ( void )
+{
+	int i;
+
+	SKY_LOG_TRACE( "%s: init_count = %d\n", __func__, init_count );
+	if ( 1 == init_count )
+	{
+		for ( i = 0; i < INIT_FUNC_CNT; i++ )
+		{
+			UNINIT_FUNCS[ i ]();
+		}
+	}
+	init_count--;
+}
+
+void sky_critical_section_destroy ( SKY_HANDLE crit_sect );
+void sky_list_destroy ( SKY_HANDLE list );
+void sky_hash_destroy ( SKY_HANDLE hash );
+void sky_dll_close ( SKY_HANDLE dll );
+
+SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
+{
+	struct sky_handle * obj = (struct sky_handle*) object_handle;
+	switch ( obj->type )
+	{
+	case SKY_HANDLE_TYPE_CRITICAL_SECTION:
+			sky_critical_section_destroy( object_handle );
+			break;
+	case SKY_HANDLE_TYPE_LIST:
+		sky_list_destroy( object_handle );
+		break;
+
+	case SKY_HANDLE_TYPE_HASH:
+		sky_hash_destroy ( object_handle );
+		break;
+
+	case SKY_HANDLE_TYPE_DLL:
+		sky_dll_close( object_handle );
+		break;
+
+	default:
+		break;
+	}
+}
