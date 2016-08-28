@@ -6,7 +6,7 @@ We may use the SDK at work.
 
 debug  can log the different level's log.
 
-Hash can be used when we need create hash table.
+Hash can be used when we need create hash table，which is packaged by Linux kernel.
 
 List can be used when we need create list.
 
