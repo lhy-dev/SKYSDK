@@ -26,10 +26,6 @@
 
 typedef void*							SKY_HANDLE;
 
-#define SKY_NAME_MAX					108
-
-#define SKY_PATH_MAX					4096
-
 #define SKY_INVALID_HANDLE				((void*)0)
 
 #define SKY_INFINITE					((uint32_t)-1)
@@ -38,7 +34,7 @@ typedef void*							SKY_HANDLE;
 #define SKY_WAIT_OBJECT_0				((uint32_t)0x00000000L)
 #define SKY_WAIT_ABANDONED_0			((uint32_t)0x00000080L)
 #define SKY_WAIT_TIMEOUT				((uint32_t)0x00000102L)
-#define SKY_WAIT_FAILED				((uint32_t)0xFFFFFFFFL)
+#define SKY_WAIT_FAILED				   ((uint32_t)0xFFFFFFFFL)
 
 #ifndef bool
 #define bool							unsigned char
@@ -69,13 +65,13 @@ typedef void*							SKY_HANDLE;
 #define LOBYTE_OF(w)					((uint8_t)((w) & 0xff))
 #define HIBYTE_OF(w)					((uint8_t)(((w) >> 8) & 0xff))
 
-struct SKY_handle
+struct sky_handle
 {
 	uint16_t cb;
 	uint16_t type;
 };
 
-enum SKY_handle_type
+enum sky_handle_type
 {
 	SKY_HANDLE_TYPE_CRITICAL_SECTION	= 1,
 	SKY_HANDLE_TYPE_EVENT				= 2,
@@ -98,12 +94,12 @@ enum SKY_handle_type
 	SKY_HANDLE_TYPE_BTREE				= 19,
 	SKY_HANDLE_TYPE_PIPE				= 20,
 };
-typedef enum SKY_handle_type			SKY_HANDLE_TYPE;
+typedef enum sky_handle_type			SKY_HANDLE_TYPE;
 
 #define SKY_ERR_CODE(class,err) \
 	( 0x80000000 | ( ((uint32_t)class)<<16) | ((uint32_t)err) )
 
-enum SKY_error_class
+enum sky_error_class
 {
 	SKY_ERROR_CLASS_CRITICAL_SECTION	= 1,
 	SKY_ERROR_CLASS_EVENT				= 2,
@@ -126,41 +122,24 @@ enum SKY_error_class
 	SKY_ERROR_CLASS_BTREE				= 19,
 	SKY_ERROR_CLASS_PIPE				= 20,
 };
-typedef enum SKY_error_class			SKY_ERROR_CLASS;
+typedef enum sky_error_class			SKY_ERROR_CLASS;
 
 #define SKY_VALIDATE_HANDLE(type,handle) \
 	SKY_ASSERT((handle!=SKY_INVALID_HANDLE)&&((uint16_t*)handle)[1]==type)
-
-
-#ifndef WINVER
-#define WINVER							0x0500
-#endif
-
-#ifndef _WIN32_IE
-#define _WIN32_IE						0x0501
-#endif
-
-#ifndef _WIN32_WINDOWS
-#define _WIN32_WINDOWS					0x0410
-#endif
-
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT					0x0500
-#endif
 
 #ifndef __func__
 #define __func__						__FUNCTION__
 #endif
 
 #define SKY_MEM_ALLOC_ARRAY(p,count) \
-	p = SKY_mem_alloc( sizeof( (p)[ 0 ] ) * (count) )
+	p = sky_mem_alloc( sizeof( (p)[ 0 ] ) * (count) )
 
 #define SKY_MEM_SAFE_FREE(mem) \
 	do \
 	{ \
 		if ( (mem) != NULL ) \
 		{ \
-			SKY_mem_free( mem ); \
+			sky_mem_free( mem ); \
 			(mem) = NULL; \
 		} \
 	} while ( 0 )
@@ -170,7 +149,7 @@ typedef enum SKY_error_class			SKY_ERROR_CLASS;
 	{ \
 		if( (h) != SKY_INVALID_HANDLE ) \
 		{ \
-			SKY_close_handle( h ); \
+			sky_close_handle( h ); \
 			h = SKY_INVALID_HANDLE; \
 		} \
 	} while ( 0 )
@@ -192,7 +171,6 @@ typedef enum SKY_error_class			SKY_ERROR_CLASS;
 	#define RVOT(cond,v)	if ( cond ) { SKY_ASSERT(0); return v; }
 	#define RVOZ(cond,v)	if ( 0 == (cond) ) { SKY_ASSERT(0); return v; }
 #else
-	// without ASSERT
 	#define BON(cond)		if ( NULL == (cond) ) { break; }
 	#define BOF(cond)		if ( !(cond) ) { break; }
 	#define BOT(cond)		if ( cond ) { break; }
