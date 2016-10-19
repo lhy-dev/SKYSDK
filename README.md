@@ -1,9 +1,15 @@
 # appsdk
-
+#SKY
 linux C SDK API which is packaged by general Linux API .in order to develop linux c application quckily.the Continuously updated.....
 
 We may use the SDK at work.
+
 debug  can log the different level's log.
-Hash can be used when we need create hash table.
+
+Hash can be used when we need create hash table，which is packaged by Linux kernel function.
+
 List can be used when we need create list.
+
 sys can be used when we calculate the time operation.
+
+#GPS
