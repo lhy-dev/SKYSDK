@@ -12,4 +12,4 @@ List can be used when we need create list.
 
 sys can be used when we calculate the time operation.
 
-#GPS
+local_socket incluse the get ip, gateway ,mac ,netmask and so on.
