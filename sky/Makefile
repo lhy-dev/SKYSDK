@@ -49,6 +49,8 @@ SRCS_C			+= $(SRC_DIR)/sky_debug.c
 SRCS_C			+= $(SRC_DIR)/sky_dll.c
 SRCS_C			+= $(SRC_DIR)/sky_hash.c
 SRCS_C			+= $(SRC_DIR)/sky_sys.c
+SRCS_C			+= $(SRC_DIR)/sky_str.c
+SRCS_C			+= $(SRC_DIR)/sky_local_socket.c
 
 OBJS      		:= $(SRCS_C:%.c=$(MY_OBJ_DIR)/%.o)
 DEPS			:= $(OBJS:%.o=%.d)
