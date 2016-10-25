@@ -126,6 +126,8 @@ SKY_API int sky_str_from_hex (
 	uint32_t value;
 	int i;
 
+	RVON( str, -1 );
+	RVON( hex, -2 );
 	RVOF( str_len * 2 <= hex_len, -2 );
 
 	for ( i = 0; i < hex_len; i += 2 )
