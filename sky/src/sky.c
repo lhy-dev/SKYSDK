@@ -12,6 +12,8 @@ bool sky_str_init ( void );
 void sky_str_uninit ( void );
 bool sky_hash_init ( void );
 void sky_hash_uninit ( void );
+bool sky_regex_init( void );
+void sky_regex_uninit( void );
 bool sky_dll_init ( void );
 void sky_dll_uninit ( void );
 
@@ -20,19 +22,22 @@ typedef void (*uninit_func_type) ();
 
 const init_func_type INIT_FUNCS [] =
 {
-
 	sky_debug_init,
 	sky_critical_section_init,
 	sky_list_init,
 	sky_sys_init,
 	sky_str_init,
 	sky_hash_init,
-	sky_dll_init,
+	sky_regex_init
+	sky_dll_init
+	
 };
 
 const uninit_func_type UNINIT_FUNCS [] =
 {
+	
 	sky_dll_uninit,
+	sky_regex_uninit
 	sky_hash_uninit,
 	sky_str_uninit,
 	sky_sys_uninit,
@@ -89,6 +94,7 @@ SKY_API void sky_uninit ( void )
 void sky_critical_section_destroy ( SKY_HANDLE crit_sect );
 void sky_list_destroy ( SKY_HANDLE list );
 void sky_hash_destroy ( SKY_HANDLE hash );
+void sky_regex_destroy(SKY_HANDLE regex );
 void sky_dll_close ( SKY_HANDLE dll );
 
 SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
@@ -106,7 +112,9 @@ SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
 	case SKY_HANDLE_TYPE_HASH:
 		sky_hash_destroy ( object_handle );
 		break;
-
+	case SKY_HANDLE_TYPE_REGEX:
+		sky_regex_destroy(object_handle );
+		break;
 	case SKY_HANDLE_TYPE_DLL:
 		sky_dll_close( object_handle );
 		break;
