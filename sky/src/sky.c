@@ -4,6 +4,8 @@ bool sky_critical_section_init ( void );
 void sky_critical_section_uninit ( void );
 bool sky_debug_init ( void );
 void sky_debug_uninit ( void );
+bool sky_mem_init ( void );
+void sky_mem_uninit ( void );
 bool sky_list_init ( void );
 void sky_list_uninit ( void );
 bool sky_sys_init ( void );
@@ -24,6 +26,7 @@ const init_func_type INIT_FUNCS [] =
 {
 	sky_debug_init,
 	sky_critical_section_init,
+	sky_mem_init,
 	sky_list_init,
 	sky_sys_init,
 	sky_str_init,
@@ -42,6 +45,7 @@ const uninit_func_type UNINIT_FUNCS [] =
 	sky_str_uninit,
 	sky_sys_uninit,
 	sky_list_uninit,
+	sky_mem_init,
 	sky_critical_section_uninit,
 	sky_debug_uninit
 
