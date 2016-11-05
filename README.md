@@ -4,13 +4,15 @@ linux C SDK API which is packaged by general Linux API .in order to develop linu
 
 We may use the SDK at work.
 
-debug  can log the different level's log ,including five different levels.
+debug  can log the different level's log ,including five different levels , and be like the logging function model in the python.
+
+memary function is packaged by general C .
 
 Hash can be used when we need create hash table，which is packaged by Linux kernel function.
 
 List can be used when we need create list.
 
-sys can be used when we calculate the time operation.
+sys can be used when we calculate the time operation and so on.
 
 local_socket incluse the get ip, gateway ,mac ,netmask and so on.
 
