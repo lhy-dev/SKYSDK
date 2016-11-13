@@ -5,6 +5,11 @@
 #include "sky_debug.h"
 #include "sky_list.h"
 #include "sky_hash.h"
+#include "sky_mem.h"
+#include "sky_str.h"
+#include "sky_sys.h"
+#include "sky_regex.h"
+#include "sky_process.h"
 
 
 #ifdef __cplusplus

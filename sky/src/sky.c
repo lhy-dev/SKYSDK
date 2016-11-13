@@ -18,6 +18,8 @@ bool sky_regex_init( void );
 void sky_regex_uninit( void );
 bool sky_dll_init ( void );
 void sky_dll_uninit ( void );
+bool sky_process_init( void );
+void sky_process_unit( void );
 
 typedef bool (*init_func_type) ();
 typedef void (*uninit_func_type) ();
@@ -32,13 +34,14 @@ const init_func_type INIT_FUNCS [] =
 	sky_str_init,
 	sky_hash_init,
 	sky_regex_init
-	sky_dll_init
+	sky_dll_init,
+	sky_process_init
 	
 };
 
 const uninit_func_type UNINIT_FUNCS [] =
 {
-	
+	sky_process_unit,
 	sky_dll_uninit,
 	sky_regex_uninit
 	sky_hash_uninit,
@@ -57,8 +60,6 @@ static int init_count = 0;
 SKY_API bool sky_init ( void )
 {
 	int i,j;
-
-	SKY_LOG_TRACE( "%s: init_count = %d\n", __func__, init_count );
 
 	if ( 0 == init_count )
 	{
