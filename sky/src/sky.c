@@ -20,6 +20,8 @@ bool sky_dll_init ( void );
 void sky_dll_uninit ( void );
 bool sky_process_init( void );
 void sky_process_unit( void );
+bool sky_rwlock_init( void );
+void sky_rwlock_unit( void );
 
 typedef bool (*init_func_type) ();
 typedef void (*uninit_func_type) ();
@@ -35,12 +37,14 @@ const init_func_type INIT_FUNCS [] =
 	sky_hash_init,
 	sky_regex_init
 	sky_dll_init,
-	sky_process_init
+	sky_process_init,
+	sky_rwlock_init
 	
 };
 
 const uninit_func_type UNINIT_FUNCS [] =
 {
+	sky_rwlock_unit,
 	sky_process_unit,
 	sky_dll_uninit,
 	sky_regex_uninit
@@ -101,6 +105,7 @@ void sky_list_destroy ( SKY_HANDLE list );
 void sky_hash_destroy ( SKY_HANDLE hash );
 void sky_regex_destroy(SKY_HANDLE regex );
 void sky_dll_close ( SKY_HANDLE dll );
+void sky_rwlock_destroy ( SKY_HANDLE rwlock );
 
 SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
 {
@@ -123,6 +128,8 @@ SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
 	case SKY_HANDLE_TYPE_DLL:
 		sky_dll_close( object_handle );
 		break;
+	case SKY_HANDLE_TYPE_RWLOCK:
+		sky_rwlock_destroy( object_handle );
 
 	default:
 		break;
