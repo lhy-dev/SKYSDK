@@ -19,3 +19,5 @@ local_socket incluse the get ip, gateway ,mac ,netmask and so on.
 regex can be used to match and parse regex such as URL ,we can get all of matched results to the list ,the fuction is the same as
 
 re.findall() in the Python.
+
+sky_rwlock is packed by pthread_rwlock including read and write rwlock.
