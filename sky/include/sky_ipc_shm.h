@@ -1,5 +1,5 @@
-#ifndef SKY_SHARE_MEMORY_H
-#define SKY_SHARE_MEMORY_H
+#ifndef SKY_IPC_SHM_H
+#define SKY_IPC_SHM_H
 
 #include "sky_define.h"
 
