@@ -135,9 +135,10 @@ SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
 		break;
 	case SKY_HANDLE_TYPE_RWLOCK:
 		sky_rwlock_destroy( object_handle );
+		break;
 	case SKY_HANDLE_TYPE_SHARE_MEMORY:
 		sky_share_memory_destroy ( SKY_HANDLE share_mem );
-
+		break;
 	default:
 		break;
 	}
