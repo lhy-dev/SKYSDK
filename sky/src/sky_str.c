@@ -148,3 +148,25 @@ SKY_API char * sky_str_rindex ( char const * s, int c )
 {
 	return rindex( s, c );
 }
+
+SKY_API char * sky_str_dup ( char const * str )
+{
+	int len;
+	char * new_str;
+
+	RNON( str );
+
+	len = sky_str_len( str );
+	new_str = sky_mem_alloc( len + 1 );
+	sky_mem_copy( new_str, str, len );
+
+	return new_str;
+}
+
+SKY_API char * sky_str_tok (
+	char *str,
+	const char *delim,
+	char ** saveptr )
+{
+	return strtok_r( str, delim, saveptr );
+}

@@ -62,15 +62,12 @@ extern "C" {
 
 	SKY_API char * sky_str_rindex ( char const * s, int c );
 
-	SKY_API int sky_str_to_xml_str (
-		char const * str,
-		char * xml_str,
-		int size );
-
-	SKY_API int sky_str_from_xml_str (
-		char const * xml_str,
-		char * str,
-		int size );
+	SKY_API char * sky_str_dup ( char const * str );
+	
+	SKY_API char * sky_str_tok (
+	char *str,
+	const char *delim,
+	char ** saveptr );
 
 #ifdef __cplusplus
 }
