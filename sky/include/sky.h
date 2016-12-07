@@ -10,6 +10,9 @@
 #include "sky_sys.h"
 #include "sky_regex.h"
 #include "sky_process.h"
+#include "sky_ipc_shm.h"
+#include "sky_base64.h"
+#include "sky_rwlock.h"
 
 
 #ifdef __cplusplus
