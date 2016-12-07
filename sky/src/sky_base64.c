@@ -18,7 +18,7 @@ static uint8_t base64_decoding_table[ 256 ];
 static const int base64_mod_table[] = {0, 2, 1};
 
 
-bool sky_util_init ( void )
+bool sky_base64_init ( void )
 {
 	int i;
 
@@ -33,7 +33,7 @@ bool sky_util_init ( void )
 	return true;
 }
 
-void sky_util_uninit ( void )
+void sky_base64_uninit ( void )
 {
 	SKY_LOG_TRACE( "%s\n", __func__ );
 }
