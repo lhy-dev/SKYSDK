@@ -24,6 +24,8 @@ bool sky_rwlock_init( void );
 void sky_rwlock_unit( void );
 bool sky_share_memory_init( void );
 void sky_share_memory_unit( void );
+bool sky_base64_init( void );
+void sky_base64_uninit( void );
 
 typedef bool (*init_func_type) ();
 typedef void (*uninit_func_type) ();
@@ -41,12 +43,14 @@ const init_func_type INIT_FUNCS [] =
 	sky_dll_init,
 	sky_process_init,
 	sky_rwlock_init,
-	sky_share_memory_init
+	sky_share_memory_init，
+	sky_base64_init
 	
 };
 
 const uninit_func_type UNINIT_FUNCS [] =
 {
+	sky_base64_uninit,
 	sky_share_memory_unit,
 	sky_rwlock_unit,
 	sky_process_unit,
