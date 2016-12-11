@@ -26,6 +26,8 @@ bool sky_share_memory_init( void );
 void sky_share_memory_unit( void );
 bool sky_base64_init( void );
 void sky_base64_uninit( void );
+bool sky_map_init( void );
+void sky_map_uninit( void );
 
 typedef bool (*init_func_type) ();
 typedef void (*uninit_func_type) ();
@@ -44,12 +46,14 @@ const init_func_type INIT_FUNCS [] =
 	sky_process_init,
 	sky_rwlock_init,
 	sky_share_memory_init，
-	sky_base64_init
+	sky_base64_init,
+	sky_map_init
 	
 };
 
 const uninit_func_type UNINIT_FUNCS [] =
 {
+	sky_map_uninit,
 	sky_base64_uninit,
 	sky_share_memory_unit,
 	sky_rwlock_unit,
@@ -115,6 +119,7 @@ void sky_regex_destroy(SKY_HANDLE regex );
 void sky_dll_close ( SKY_HANDLE dll );
 void sky_rwlock_destroy ( SKY_HANDLE rwlock );
 bool sky_share_memory_destroy ( SKY_HANDLE share_mem );
+void sky_map_destroy(SKY_HANDLE map);
 
 SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
 {
@@ -141,8 +146,10 @@ SKY_API void sky_close_handle ( SKY_HANDLE object_handle )
 		sky_rwlock_destroy( object_handle );
 		break;
 	case SKY_HANDLE_TYPE_SHARE_MEMORY:
-		sky_share_memory_destroy ( SKY_HANDLE share_mem );
+		sky_share_memory_destroy ( object_handle );
 		break;
+	case SKY_HANDLE_TYPE_MAP:
+		sky_map_destroy( object_handle );
 	default:
 		break;
 	}

@@ -78,9 +78,10 @@ enum sky_handle_type
 	SKY_HANDLE_TYPE_RWLOCK				= 3,
 	SKY_HANDLE_TYPE_SHARE_MEMORY		= 4,
 	SKY_HANDLE_TYPE_TIMER				= 5,
-		SKY_HANDLE_TYPE_REGEX				= 6,
+	SKY_HANDLE_TYPE_REGEX			= 6,
 	SKY_HANDLE_TYPE_HASH				= 7,
 	SKY_HANDLE_TYPE_DLL				= 8,
+	SKY_HANDLE_TYPE_MAP 			=9
 };
 typedef enum sky_handle_type			SKY_HANDLE_TYPE;
 

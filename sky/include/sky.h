@@ -13,6 +13,7 @@
 #include "sky_ipc_shm.h"
 #include "sky_base64.h"
 #include "sky_rwlock.h"
+#include "sky_map.h"
 
 
 #ifdef __cplusplus
