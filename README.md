@@ -22,4 +22,6 @@ re.findall() in the Python.
 
 sky_rwlock is packed by pthread_rwlock including read and write rwlock.
 
+sky_base64 include base64 encryption and DES encryption , refere to https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/libs/commtrf1/cbc_crypt.htm
+
 sky_map refere to https://github.com/Azure/azure-c-shared-utility in order to realize the map structure api  using c.
