@@ -16,6 +16,28 @@ extern "C" {
 		char const * data,
 		uint32_t input_length,
 		uint32_t * output_length );
+		
+			SKY_API int sky_des_encrypt_cbc (
+		char const * key,
+		void * data,
+		uint32_t data_len,
+		char const * ivec );
+
+	SKY_API int sky_des_decrypt_cbc (
+		char const * key,
+		void * data,
+		uint32_t data_len,
+		char const * ivec );
+
+	SKY_API int sky_des_encrypt_ecb (
+		char const * key,
+		void * data,
+		uint32_t data_len );
+
+	SKY_API int sky_des_decrypt_ecb (
+		char const * key,
+		void * data,
+		uint32_t data_len );
 
 
 #ifdef __cplusplus

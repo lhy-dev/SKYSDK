@@ -130,4 +130,90 @@ SKY_API uint8_t * sky_base64_decode (
 
 	return decoded_data;
 }
+static int des_crypt_cbc (
+	char const * key,
+	void * data,
+	uint32_t data_len,
+	char const * ivec,
+	unsigned mode )
+{
+	char key_tmp[ 9 ];
+	char ivec_tmp[ 9 ];
+	int rc;
+
+	sky_str_cpy( key_tmp, key, sizeof( key_tmp ) );
+	sky_str_cpy( ivec_tmp, ivec, sizeof( ivec_tmp ) );
+
+	des_setparity( key_tmp );
+
+	rc = cbc_crypt( key_tmp, (char*) data, data_len, mode, ivec_tmp );
+	if ( DES_FAILED( rc ) )
+	{
+		SKY_LOG_ERROR( "%s: cbc_crypt failed, return %d\n", __func__, rc );
+		return -3;
+	}
+
+	return 0;
+}
+
+SKY_API int sky_des_encrypt_cbc (
+	char const * key,
+	void * data,
+	uint32_t data_len,
+	char const * ivec )
+{
+	return des_crypt_cbc( key, data, data_len, ivec, DES_ENCRYPT );
+}
+
+SKY_API int sky_des_decrypt_cbc (
+	char const * key,
+	void * data,
+	uint32_t data_len,
+	char const * ivec )
+{
+	return des_crypt_cbc( key, data, data_len, ivec, DES_DECRYPT );
+}
+
+static int des_crypt_ecb (
+	char const * key,
+	void * data,
+	uint32_t data_len,
+	unsigned mode )
+{
+	char key_tmp[ 9 ];
+	int rc;
+
+	RVON( data, -1 );
+	RVOF( data_len % 8 == 0, -2 );
+
+	sky_str_cpy( key_tmp, key, sizeof( key_tmp ) );
+
+	des_setparity( key_tmp );
+
+	rc = ecb_crypt( key_tmp, (char*) data, data_len, mode );
+	if ( DES_FAILED( rc ) )
+	{
+		SKY_LOG_ERROR( "%s: ecb_crypt failed, return %d\n", __func__, rc );
+		return -3;
+	}
+
+	return 0;
+}
+
+SKY_API int sky_des_encrypt_ecb (
+	char const * key,
+	void * data,
+	uint32_t data_len )
+{
+	return des_crypt_ecb( key, data, data_len, DES_ENCRYPT );
+}
+
+SKY_API int sky_des_decrypt_ecb (
+	char const * key,
+	void * data,
+	uint32_t data_len )
+{
+	return des_crypt_ecb( key, data, data_len, DES_DECRYPT );
+}
+
 
